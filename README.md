@@ -1,4 +1,5 @@
 # Coinfaucets_Autoclaim
+Register account here https://coinfaucet.io
 
 Requirements:
 run in terminal

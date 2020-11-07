@@ -7,8 +7,9 @@ run in terminal
   pip install undetected-chromedriver
   
   pip install selenium
-
-
+  
+  
+Follow:
 
 1. Register account here https://coinfaucet.io
 

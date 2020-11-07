@@ -7,6 +7,8 @@ from selenium.common.exceptions import TimeoutException
 import time
 import json
 import schedule
+import undetected_chromedriver as uc
+
 
 PATH = "C:\Program Files (x86)\chromedriver.exe"
 counter = 0
@@ -20,7 +22,8 @@ password = login['pass']
 
 
 def visit_site():
-    driver = webdriver.Chrome(PATH)
+    #driver = webdriver.Chrome(PATH)
+    driver = uc.Chrome()
     driver.set_page_load_timeout(120)
     try:
         driver.get("https://coinfaucet.io/free")

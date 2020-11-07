@@ -1,5 +1,5 @@
 # Coinfaucets_Autoclaim
-Register account here https://coinfaucet.io
+
 
 Requirements:
 run in terminal
@@ -10,12 +10,15 @@ run in terminal
 
 
 
+1. Register account here https://coinfaucet.io
 
-Enter your id and password in the Login.json file
+2. Enter your id and password in the Login.json file
 
 user = user email
 
 pass = your password
+
+3. run main.py
 
 
 

@@ -1,4 +1,4 @@
-                                                                              ## PYTHON FAUCET AUTOCLAIM BOT
+## PYTHON FAUCET AUTO CLAIM BOT
 
 
 ## Requirements:

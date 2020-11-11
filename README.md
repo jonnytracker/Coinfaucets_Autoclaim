@@ -1,7 +1,7 @@
 ## PYTHON FAUCET AUTO CLAIM BOT
 
 
-## Requirements:
+## Requirements: Step 1
 
 Run in terminal
 
@@ -11,7 +11,7 @@ pip install undetected-chromedriver
 pip install selenium
 ```
 
-## Register Accounts
+## Register Accounts: Step 2
 
 
 [XRP](https://coinfaucet.io/?ref=677594)
@@ -26,7 +26,7 @@ pip install selenium
 
 
 
-## Login Credentials
+## Login Credentials: Step 3
 Enter username and password in Login.json
 
 Enter Telegram TOKEN and Chat id in Telegram.json

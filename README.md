@@ -1,48 +1,49 @@
-# Coinfaucets_Autoclaim
 
+## Requirements:
 
-Requirements:
-run in terminal
+Run in terminal
 
-  pip install undetected-chromedriver
+```bash
+pip install undetected-chromedriver
   
-  pip install selenium
-  
-  
-Follow:
+pip install selenium
+```
 
-1. Register account here https://coinfaucet.io
-
-2. Enter your id and password in the Login.json file
-
-user = user email
-
-pass = your password
+## Register Accounts
 
 
-3. Enter Telegram TOKEN and chat id in Telegram.json
-
-how to find chat id of telegram https://youtu.be/ps1yeWwd6iA
-
-
-STEPS TO GET CHAT ID:
-
-Create a bot with @BotFather
-
-Create a group chat 
-
-invite the bot to the group chat
-
-and type /my_id @newBot
-
-visit https://api.telegram.org/botXXX/getUpdates  (enter your telegram Token in the XXX field)
-
-Get the chat id ,"chat":{"id":-201275723,
-
-Chat id =  -201275723
+[XRP](https://coinfaucet.io/?ref=677594)
+[NEM](https://freenem.com/?ref=243923)
+[ADA](https://freecardano.com/?ref=237320)
+[ETH](https://freeethereum.com/?ref=77292)
+[TRX](https://free-tron.com/?ref=75064)
+[DASH](https://freedash.io/?ref=41047)
+[LINK](https://freechain.link/?ref=25431)
+[NEO](https://freeneo.io/?ref=28232)
 
 
 
-enjoy
+
+## Login Credentials
+Enter username and password in Login.json
+
+Enter Telegram TOKEN and Chat id in Telegram.json
 
 
+
+## How To Get Telegram Chat ID
+```
+1. Create a bot with @BotFather
+
+2. Create a group chat 
+
+3. Invite the bot to the group chat
+
+4. And type /my_id @newBot(yourbotname)
+
+5. Visit https://api.telegram.org/botXXX/getUpdates  (enter your telegram Token in the XXX field)
+
+6. Get the chat id ,"chat":{"id":-201275723,
+
+7. Chat id =  -201275723
+```

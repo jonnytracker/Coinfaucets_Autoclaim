@@ -19,7 +19,27 @@ user = user email
 
 pass = your password
 
-3. run main.py
+
+3. Enter Telegram TOKEN and chat id in Telegram.json
+
+how to find chat id of telegram https://youtu.be/ps1yeWwd6iA
+
+
+STEPS TO GET CHAT ID:
+
+Create a bot with @BotFather
+
+Create a group chat 
+
+invite the bot to the group chat
+
+and type /my_id @newBot
+
+visit https://api.telegram.org/botXXX/getUpdates  (enter your telegram Token in the XXX field)
+
+Get the chat id ,"chat":{"id":-201275723,
+
+Chat id =  -201275723
 
 
 

@@ -11,6 +11,7 @@ pip install undetected-chromedriver
 pip install selenium
 ```
 
+
 ## Register Accounts: Step 2
 
 

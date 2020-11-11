@@ -1,7 +1,4 @@
-```diff
-## PYTHON FAUCETS AUTOCLAIM
-```
-
+### PYTHON FAUCET AUTOCLAIM BOT
 
 
 ## Requirements:

@@ -21,6 +21,7 @@ bot = telegram.Bot(token=token)
 counter = 0
 global claim
 
+
 def visit_site_xrp():
     print("Visiting site xrp")
     bot.send_message(chat_id=id, text="Visiting XRP site")
@@ -42,13 +43,14 @@ def visit_site_xrp():
         print("Page load Timeout Occured. Quiting !!!")
         driver.quit()
 
+    time.sleep(5)
+
     try:
         time.sleep(10)
         # click roll button if it is present
         driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
         print("roll was successful on page load")
         time.sleep(5)
-
         #send msg to telegram bot
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
         bot.send_message(chat_id=id, text=element.text)
@@ -58,31 +60,61 @@ def visit_site_xrp():
 
     except:
         # if roll button not present try to login
-        element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "email")))
+        element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "email")))
         element.send_keys(username)
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "password")))
         element.send_keys(password)
-        time.sleep(10)
-        driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         time.sleep(5)
+
+        #try login click if fail close the ads iframe
         try:
-            time.sleep(5)
-            driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
-            print("roll success clicked after login")
-            time.sleep(5)
-            # send msg to telegram bot
-            element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
-            bot.send_message(chat_id=id, text=element.text)
-
-            claim += 1
-            time.sleep(2)
-            driver.quit()
-
+            #try login click
+            driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         except:
-            print("already clicked wait more minutes")
-            bot.send_message(chat_id=id, text="Already Claimed")
-            time.sleep(2)
-            driver.quit()
+            print("login button click fail")
+            #close ads since login fail
+            driver.find_element_by_xpath("//*[@id='fbf-mobile-close-coinzilla']").click()
+
+            try:
+                #try login after ads close
+                print("trying login again")
+                driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+                print("login successful")
+            except:
+                #if fail again close
+                print("login fail quitting ")
+                time.sleep(5)
+                driver.quit()
+
+    time.sleep(5)
+
+    #if on login success main page. Print we are on roll page
+    try:
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.XPATH, "//*[contains(text(),'THIS GAME IS PROVABLY FAIR!')]")))
+        print("We are on roll page")
+
+    except:
+        print("login fail")
+
+
+    #now click the roll button
+    try:
+        time.sleep(5)
+        driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
+        print("roll success clicked after login")
+        time.sleep(5)
+        # send msg to telegram bot
+        element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
+        bot.send_message(chat_id=id, text=element.text)
+        claim += 1
+        time.sleep(2)
+        driver.quit()
+
+    except:
+        print("already clicked wait more minutes")
+        bot.send_message(chat_id=id, text="Already Claimed")
+        time.sleep(2)
+        driver.quit()
     print("Visited site XRP successfully")
 
 
@@ -106,11 +138,10 @@ def visit_site_cardano():
         driver.quit()
 
     try:
-        time.sleep(10)
+        time.sleep(5)
         # click roll button if it is present
         driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
         print("roll was successful on page load")
-
         time.sleep(2)
         driver.quit()
 
@@ -120,24 +151,53 @@ def visit_site_cardano():
         element.send_keys(username)
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "password")))
         element.send_keys(password)
-        time.sleep(10)
-        driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         time.sleep(5)
+
+        # try login click if fail close the ads iframe
         try:
-            time.sleep(5)
-            driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
-            print("roll success clicked after login")
-
-            claim += 1
-            time.sleep(2)
-            driver.quit()
-
+            # try login click
+            driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         except:
-            print("already clicked wait more minutes")
-            bot.send_message(chat_id=id, text="Already Claimed")
-            time.sleep(2)
-            driver.quit()
+            print("login button click fail")
+            # close ads since login fail
+            driver.find_element_by_xpath("/html/body/div[1]/div[1]").click()
+            try:
+                # try login after ads close
+                print("trying login again")
+                driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+                print("login successful")
+            except:
+                # if fail again close
+                print("login fail quitting ")
+                time.sleep(5)
+                driver.quit()
+
+    try:
+        element = WebDriverWait(driver, 15).until(
+            EC.presence_of_element_located((By.XPATH, "//*[contains(text(),'THIS GAME IS PROVABLY FAIR!')]")))
+        print("login success")
+    except:
+        print("login fail")
+
+
+    #on login success click the roll button now
+    try:
+        time.sleep(5)
+        driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
+        print("roll success clicked after login")
+
+        claim += 1
+        time.sleep(2)
+        driver.quit()
+
+    except:
+        print("already clicked wait more minutes")
+        bot.send_message(chat_id=id, text="Already Claimed")
+        time.sleep(2)
+        driver.quit()
+
     print("Visited site Cardano successfully")
+    driver.quit()
 
 
 def visit_site_tron():
@@ -183,27 +243,30 @@ def visit_site_tron():
         time.sleep(10)
         driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         time.sleep(5)
-        try:
-            time.sleep(5)
-            driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
-            print("roll success clicked after login")
 
-            time.sleep(5)
+    try:
+        time.sleep(5)
+        driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
+        print("roll success clicked after login")
 
-            # send msg to telegram bot
-            element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
-            bot.send_message(chat_id=id, text=element.text)
+        time.sleep(5)
 
-            claim += 1
-            time.sleep(5)
-            driver.quit()
+        # send msg to telegram bot
+        element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
+        bot.send_message(chat_id=id, text=element.text)
 
-        except:
-            print("already clicked wait more minutes")
-            bot.send_message(chat_id=id, text="Already Claimed")
-            time.sleep(5)
-            driver.quit()
+        claim += 1
+        time.sleep(5)
+        driver.quit()
+
+    except:
+        print("already clicked wait more minutes")
+        bot.send_message(chat_id=id, text="Already Claimed")
+        time.sleep(5)
+        driver.quit()
+
     print("Visited site Tron successfully")
+    driver.quit()
 
 
 def visit_site_dash():
@@ -250,27 +313,30 @@ def visit_site_dash():
         time.sleep(10)
         driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         time.sleep(5)
-        try:
-            time.sleep(5)
-            driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
-            print("roll success clicked after login")
 
-            time.sleep(5)
+    try:
+        time.sleep(5)
+        driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
+        print("roll success clicked after login")
 
-            # send msg to telegram bot
-            element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
-            bot.send_message(chat_id=id, text=element.text)
+        time.sleep(5)
 
-            claim += 1
-            time.sleep(5)
-            driver.quit()
+        # send msg to telegram bot
+        element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
+        bot.send_message(chat_id=id, text=element.text)
 
-        except:
-            print("already clicked wait more minutes")
-            bot.send_message(chat_id=id, text="Already Claimed")
-            time.sleep(5)
-            driver.quit()
+        claim += 1
+        time.sleep(5)
+        driver.quit()
+
+    except:
+        print("already clicked wait more minutes")
+        bot.send_message(chat_id=id, text="Already Claimed")
+        time.sleep(5)
+        driver.quit()
+
     print("Visited site Dash successfully")
+    driver.quit()
 
 
 
@@ -318,27 +384,30 @@ def visit_site_eth():
         time.sleep(10)
         driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         time.sleep(5)
-        try:
-            time.sleep(5)
-            driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
-            print("roll success clicked after login")
 
-            time.sleep(5)
+    try:
+        time.sleep(5)
+        driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
+        print("roll success clicked after login")
 
-            # send msg to telegram bot
-            element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
-            bot.send_message(chat_id=id, text=element.text)
+        time.sleep(5)
 
-            claim += 1
-            time.sleep(5)
-            driver.quit()
+        # send msg to telegram bot
+        element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
+        bot.send_message(chat_id=id, text=element.text)
 
-        except:
-            print("already clicked wait more minutes")
-            bot.send_message(chat_id=id, text="Already Claimed")
-            time.sleep(5)
-            driver.quit()
+        claim += 1
+        time.sleep(5)
+        driver.quit()
+
+    except:
+        print("already clicked wait more minutes")
+        bot.send_message(chat_id=id, text="Already Claimed")
+        time.sleep(5)
+        driver.quit()
+
     print("Visited site ETH successfully")
+    driver.quit()
 
 
 
@@ -386,27 +455,30 @@ def visit_site_nem():
         time.sleep(10)
         driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         time.sleep(5)
-        try:
-            time.sleep(5)
-            driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
-            print("roll success clicked after login")
 
-            time.sleep(5)
+    try:
+        time.sleep(5)
+        driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
+        print("roll success clicked after login")
 
-            # send msg to telegram bot
-            element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
-            bot.send_message(chat_id=id, text=element.text)
+        time.sleep(5)
 
-            claim += 1
-            time.sleep(5)
-            driver.quit()
+        # send msg to telegram bot
+        element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
+        bot.send_message(chat_id=id, text=element.text)
 
-        except:
-            print("already clicked wait more minutes")
-            bot.send_message(chat_id=id, text="Already Claimed")
-            time.sleep(5)
-            driver.quit()
+        claim += 1
+        time.sleep(5)
+        driver.quit()
+
+    except:
+        print("already clicked wait more minutes")
+        bot.send_message(chat_id=id, text="Already Claimed")
+        time.sleep(5)
+        driver.quit()
+
     print("Visited site NEM successfully")
+    driver.quit()
 
 
 
@@ -453,27 +525,30 @@ def visit_site_neo():
         time.sleep(10)
         driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         time.sleep(5)
-        try:
-            time.sleep(5)
-            driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
-            print("roll success clicked after login")
 
-            time.sleep(5)
+    try:
+        time.sleep(5)
+        driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
+        print("roll success clicked after login")
 
-            # send msg to telegram bot
-            element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
-            bot.send_message(chat_id=id, text=element.text)
+        time.sleep(5)
 
-            claim += 1
-            time.sleep(5)
-            driver.quit()
+        # send msg to telegram bot
+        element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
+        bot.send_message(chat_id=id, text=element.text)
 
-        except:
-            print("already clicked wait more minutes")
-            bot.send_message(chat_id=id, text="Already Claimed")
-            time.sleep(5)
-            driver.quit()
+        claim += 1
+        time.sleep(5)
+        driver.quit()
+
+    except:
+        print("already clicked wait more minutes")
+        bot.send_message(chat_id=id, text="Already Claimed")
+        time.sleep(5)
+        driver.quit()
+
     print("Visited site NEO successfully")
+    driver.quit()
 
 
 
@@ -522,27 +597,30 @@ def visit_site_link():
         time.sleep(10)
         driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
         time.sleep(5)
-        try:
-            time.sleep(5)
-            driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
-            print("roll success clicked after login")
 
-            time.sleep(5)
+    try:
+        time.sleep(5)
+        driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
+        print("roll success clicked after login")
 
-            # send msg to telegram bot
-            element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
-            bot.send_message(chat_id=id, text=element.text)
+        time.sleep(5)
 
-            claim += 1
-            time.sleep(5)
-            driver.quit()
+        # send msg to telegram bot
+        element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CLASS_NAME, "result")))
+        bot.send_message(chat_id=id, text=element.text)
 
-        except:
-            print("already clicked wait more minutes")
-            bot.send_message(chat_id=id, text="Already Claimed")
-            time.sleep(5)
-            driver.quit()
+        claim += 1
+        time.sleep(5)
+        driver.quit()
+
+    except:
+        print("already clicked wait more minutes")
+        bot.send_message(chat_id=id, text="Already Claimed")
+        time.sleep(5)
+        driver.quit()
+
     print("Visited site LINK successfully")
+    driver.quit()
 
 
 

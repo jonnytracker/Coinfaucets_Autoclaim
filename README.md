@@ -9,6 +9,10 @@ Run in terminal
 pip install undetected-chromedriver
   
 pip install selenium
+
+pip install telegram
+
+pip install python-telegram-bot
 ```
 
 

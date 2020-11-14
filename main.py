@@ -8,6 +8,7 @@ import time
 import json
 import undetected_chromedriver as uc
 import telegram
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 with open('TelegramBot.json', 'r') as file:
@@ -33,11 +34,18 @@ def visit_site_xrp():
     password = login['passXRP']
 
     #driver = webdriver.Chrome(PATH)
-    driver = uc.Chrome()
+    opts = uc.ChromeOptions()
+    opts.add_argument('--disable-notifications')
+    #opts.add_extension("extension_3_9_5_0.crx")
+    driver = uc.Chrome(options=opts)
     driver.set_page_load_timeout(120)
+    #driver.get('chrome://settings/')
+    #driver.execute_script('chrome.settingsPrivate.setDefaultZoom(.7);')
+
 
     try:
         driver.get("https://coinfaucet.io/free")
+
     except TimeoutException as e:
         print(e.msg)
         print("Page load Timeout Occured. Quiting !!!")
@@ -46,6 +54,7 @@ def visit_site_xrp():
     time.sleep(5)
 
     try:
+
         time.sleep(10)
         # click roll button if it is present
         driver.find_element_by_xpath("/html/body/main/div/div/div/div/div/div[5]/button").click()
@@ -65,6 +74,7 @@ def visit_site_xrp():
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "password")))
         element.send_keys(password)
         time.sleep(5)
+
 
         #try login click if fail close the ads iframe
         try:
@@ -127,8 +137,10 @@ def visit_site_cardano():
 
     username = login['userADA']
     password = login['passADA']
-    #driver = webdriver.Chrome(PATH)
-    driver = uc.Chrome()
+    opts = uc.ChromeOptions()
+    opts.add_argument('--disable-notifications')
+    # opts.add_extension("extension_3_9_5_0.crx")
+    driver = uc.Chrome(options=opts)
     driver.set_page_load_timeout(120)
     try:
         driver.get("https://freecardano.com/")
@@ -161,6 +173,7 @@ def visit_site_cardano():
             print("login button click fail")
             # close ads since login fail
             driver.find_element_by_xpath("/html/body/div[1]/div[1]").click()
+
             try:
                 # try login after ads close
                 print("trying login again")
@@ -210,8 +223,10 @@ def visit_site_tron():
 
     username = login['userTRON']
     password = login['passTRON']
-    #driver = webdriver.Chrome(PATH)
-    driver = uc.Chrome()
+    opts = uc.ChromeOptions()
+    opts.add_argument('--disable-notifications')
+    # opts.add_extension("extension_3_9_5_0.crx")
+    driver = uc.Chrome(options=opts)
     driver.set_page_load_timeout(120)
     try:
         driver.get("https://free-tron.com/")
@@ -279,9 +294,13 @@ def visit_site_dash():
 
     username = login['userDASH']
     password = login['passDASH']
-    #driver = webdriver.Chrome(PATH)
-    driver = uc.Chrome()
+
+    opts = uc.ChromeOptions()
+    opts.add_argument('--disable-notifications')
+    # opts.add_extension("extension_3_9_5_0.crx")
+    driver = uc.Chrome(options=opts)
     driver.set_page_load_timeout(120)
+
     try:
         driver.get("https://freedash.io/")
     except TimeoutException as e:
@@ -350,9 +369,13 @@ def visit_site_eth():
 
     username = login['userETH']
     password = login['passETH']
-    #driver = webdriver.Chrome(PATH)
-    driver = uc.Chrome()
+
+    opts = uc.ChromeOptions()
+    opts.add_argument('--disable-notifications')
+    # opts.add_extension("extension_3_9_5_0.crx")
+    driver = uc.Chrome(options=opts)
     driver.set_page_load_timeout(120)
+
     try:
         driver.get("https://freeethereum.com/")
     except TimeoutException as e:
@@ -421,9 +444,13 @@ def visit_site_nem():
 
     username = login['userNEM']
     password = login['passNEM']
-    #driver = webdriver.Chrome(PATH)
-    driver = uc.Chrome()
+
+    opts = uc.ChromeOptions()
+    opts.add_argument('--disable-notifications')
+    # opts.add_extension("extension_3_9_5_0.crx")
+    driver = uc.Chrome(options=opts)
     driver.set_page_load_timeout(120)
+
     try:
         driver.get("https://freenem.com/")
     except TimeoutException as e:
@@ -491,9 +518,13 @@ def visit_site_neo():
 
     username = login['userNEO']
     password = login['passNEO']
-    #driver = webdriver.Chrome(PATH)
-    driver = uc.Chrome()
+
+    opts = uc.ChromeOptions()
+    opts.add_argument('--disable-notifications')
+    # opts.add_extension("extension_3_9_5_0.crx")
+    driver = uc.Chrome(options=opts)
     driver.set_page_load_timeout(120)
+
     try:
         driver.get("https://freeneo.io/")
     except TimeoutException as e:
@@ -563,9 +594,12 @@ def visit_site_link():
     username = login['userLINK']
     password = login['passLINK']
 
-    #driver = webdriver.Chrome(PATH)
-    driver = uc.Chrome()
+    opts = uc.ChromeOptions()
+    opts.add_argument('--disable-notifications')
+    # opts.add_extension("extension_3_9_5_0.crx")
+    driver = uc.Chrome(options=opts)
     driver.set_page_load_timeout(120)
+
     try:
         driver.get("https://freechain.link/")
     except TimeoutException as e:

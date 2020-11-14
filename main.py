@@ -255,9 +255,26 @@ def visit_site_tron():
         element.send_keys(username)
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "password")))
         element.send_keys(password)
-        time.sleep(10)
-        driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
-        time.sleep(5)
+
+        # try login click if fail close the ads iframe
+        try:
+            # try login click
+            driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+        except:
+            print("login button click fail")
+            # close ads since login fail
+            driver.find_element_by_xpath("/html/body/div[1]/div[1]").click()
+
+            try:
+                # try login after ads close
+                print("trying login again")
+                driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+                print("login successful")
+            except:
+                # if fail again close
+                print("login fail quitting ")
+                time.sleep(5)
+                driver.quit()
 
     try:
         time.sleep(5)
@@ -329,9 +346,25 @@ def visit_site_dash():
         element.send_keys(username)
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "password")))
         element.send_keys(password)
-        time.sleep(10)
-        driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
-        time.sleep(5)
+        # try login click if fail close the ads iframe
+        try:
+            # try login click
+            driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+        except:
+            print("login button click fail")
+            # close ads since login fail
+            driver.find_element_by_xpath("/html/body/div[1]/div[1]").click()
+
+            try:
+                # try login after ads close
+                print("trying login again")
+                driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+                print("login successful")
+            except:
+                # if fail again close
+                print("login fail quitting ")
+                time.sleep(5)
+                driver.quit()
 
     try:
         time.sleep(5)
@@ -404,9 +437,26 @@ def visit_site_eth():
         element.send_keys(username)
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "password")))
         element.send_keys(password)
-        time.sleep(10)
-        driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
-        time.sleep(5)
+
+        # try login click if fail close the ads iframe
+        try:
+            # try login click
+            driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+        except:
+            print("login button click fail")
+            # close ads since login fail
+            driver.find_element_by_xpath("/html/body/div[1]/div[1]").click()
+
+            try:
+                # try login after ads close
+                print("trying login again")
+                driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+                print("login successful")
+            except:
+                # if fail again close
+                print("login fail quitting ")
+                time.sleep(5)
+                driver.quit()
 
     try:
         time.sleep(5)
@@ -479,9 +529,26 @@ def visit_site_nem():
         element.send_keys(username)
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "password")))
         element.send_keys(password)
-        time.sleep(10)
-        driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
-        time.sleep(5)
+
+        # try login click if fail close the ads iframe
+        try:
+            # try login click
+            driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+        except:
+            print("login button click fail")
+            # close ads since login fail
+            driver.find_element_by_xpath("/html/body/div[1]/div[1]").click()
+
+            try:
+                # try login after ads close
+                print("trying login again")
+                driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+                print("login successful")
+            except:
+                # if fail again close
+                print("login fail quitting ")
+                time.sleep(5)
+                driver.quit()
 
     try:
         time.sleep(5)
@@ -553,9 +620,26 @@ def visit_site_neo():
         element.send_keys(username)
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "password")))
         element.send_keys(password)
-        time.sleep(10)
-        driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
-        time.sleep(5)
+
+        # try login click if fail close the ads iframe
+        try:
+            # try login click
+            driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+        except:
+            print("login button click fail")
+            # close ads since login fail
+            driver.find_element_by_xpath("/html/body/div[1]/div[1]").click()
+
+            try:
+                # try login after ads close
+                print("trying login again")
+                driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+                print("login successful")
+            except:
+                # if fail again close
+                print("login fail quitting ")
+                time.sleep(5)
+                driver.quit()
 
     try:
         time.sleep(5)
@@ -628,9 +712,26 @@ def visit_site_link():
         element.send_keys(username)
         element = WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.NAME, "password")))
         element.send_keys(password)
-        time.sleep(10)
-        driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
-        time.sleep(5)
+
+        # try login click if fail close the ads iframe
+        try:
+            # try login click
+            driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+        except:
+            print("login button click fail")
+            # close ads since login fail
+            driver.find_element_by_xpath("/html/body/div[1]/div[1]").click()
+
+            try:
+                # try login after ads close
+                print("trying login again")
+                driver.find_element_by_xpath("//button[contains(text(),'LOGIN!')]").click()
+                print("login successful")
+            except:
+                # if fail again close
+                print("login fail quitting ")
+                time.sleep(5)
+                driver.quit()
 
     try:
         time.sleep(5)

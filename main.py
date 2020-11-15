@@ -911,7 +911,7 @@ while True:
     time.sleep(rand) #seconds to hour
 
     counter += 1
-    bot.send_message(chat_id=id, text="wait finished " + "Run Times: " + str(counter))
+    bot.send_message(chat_id=id, text="Wait Finished " + "Run Times: " + str(counter))
     print("Wait Finished " + "Run Times: " + str(counter))
 
 
